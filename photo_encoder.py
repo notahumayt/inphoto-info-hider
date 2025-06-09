@@ -11,9 +11,16 @@ def text_to_bits(text, encoding=codir, errors="ignore"):
     bits = bin(int.from_bytes(text.encode(encoding, errors), 'big'))[2:]
     return bits.zfill(8 * ((len(bits) + 7) // 8))
 
+def text_to_bits2(fl):
+    l = ''
+    with open(fl, 'rb') as f:
+        for i in f.read():
+            l+= format(i, 'b').zfill(8)
+    return l
+
 def text_from_bits(bits, encoding=codir, errors="ignore"):
     n = int(bits, 2)
-    return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors) or '\0' # , 'big'
+    return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors) or '\0'
 
 print('.png information hider by HumaYT v 1.2\n')
 print('Choose mode:')
@@ -85,7 +92,7 @@ if mode == 1:
             input()
             sys.exit()
 
-    key_bits = text_to_bits(key)
+    key_bits = text_to_bits2(key)
     sbits = text_to_bits(s)
     lens = len(sbits)
 
@@ -132,7 +139,7 @@ else:
         sys.exit()
 
     print('Successfully initialized key:',key)
-    key_bits = text_to_bits(key)
+    key_bits = text_to_bits2(key)
 
     print('Enter output decrypted filename (.txt)')
     save_name = input()
