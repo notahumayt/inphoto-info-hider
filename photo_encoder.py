@@ -5,6 +5,9 @@ import string
 import sys
 import tqdm
 
+Image.MAX_IMAGE_PIXELS = 10**20
+
+
 codir = 'utf-8'
 
 def text_to_bits(s):
